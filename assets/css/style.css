@@ -1,0 +1,120 @@
+.choose-grid {
+    width: 650px;
+    height: 360px;
+    background-color: #ccc;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    margin: auto;
+    padding: 8px 8px 0px 8px;
+    display: table;
+    position: absolute;
+    right: 0;
+    left: 0;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.15s;
+
+}
+.board-wrap {
+    display: table;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+table#board-left td,table#board-right td {
+    width: 30px ;
+    height: 30px ;
+    border: 1px solid #ccc ;
+}
+.choose-grid button{
+    width: 95%;
+}
+.choose-grid span {
+    padding-bottom: 15px;
+    display: block;
+    text-align: center;
+}
+
+
+.choose-grid .elements-right li {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+.choose-grid .elements-right li.active {
+    pointer-events: initial;
+    opacity: 1;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.board-wrap .table-cell {
+    width: 50%;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.btn-custom {
+    background-color: #eee;
+    border: none;
+    color: #333;
+    padding: 7px 4px;
+    margin: 4px;
+    border-radius: 2px;
+
+}
+.btn-custom:hover {
+    background-color: #ccc;
+    box-shadow: inset 0 0 0 1px #eee;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.2 !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.lift-up {
+    transform: translate3d(0, -428px, 0);
+}
+
+
+.canvas-wrap {
+    text-align: center;
+    margin-top: 60px;
+}
+.canvas-wrap canvas {
+    margin: 0 4px;
+}
+#js-start-game {
+    background-color: #6cc644;
+    color: #fff !important;
+}
+.btn-dropdown {
+    opacity: 0;
+    border: 1px solid #EEE;
+    background-color: #ffc40d;
+    background-image: url('../img/Down.svg');
+    border-radius: 2px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    height: 34px;
+    background-position: center center;
+    margin-bottom: 8px;
+}
+
+.board-left {
+   margin:auto;
+}
+
+.board-right {
+margin: auto;
+}
