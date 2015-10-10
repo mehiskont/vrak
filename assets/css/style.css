@@ -86,7 +86,9 @@ table#board-left td,table#board-right td {
     transform: translate3d(0, -428px, 0);
 }
 
-
+.ship {
+    background-color: #ffc40d;
+}
 .canvas-wrap {
     text-align: center;
     margin-top: 60px;

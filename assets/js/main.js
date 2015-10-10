@@ -9,7 +9,8 @@ $(document).ready(function () {
 
     var x = [];
     var y = [];
-
+    var xFirst = [];
+    var yFirst = [];
 
     var countBoat = 0;
 
@@ -82,6 +83,8 @@ $(document).ready(function () {
             countBoat = 0;
             x = [];
             y = [];
+            xFirst = [];
+            yFirst = [];
 
             $('#js-grid-selection').addClass('lift-up');
             $("#js-expand-menu").css("opacity", "1");
@@ -188,6 +191,8 @@ $(document).ready(function () {
 
                             y.push([row]);
                             x.push([col]);
+                            yFirst.push([row]);
+                            xFirst.push([col]);
 
                             console.log(countBoat + ' YX: ' + row + col);
 
@@ -692,22 +697,37 @@ $(document).ready(function () {
                     if (!found)is_ship[is_ship.length] = randomnumber;
                 }
 
+                console.log('-----------');
+
+                       console.log(is_ship);
 
                 console.log('-----------');
 
 
                 for (var z = 0; z < numberOfShips; ++z) {
 
+                    var xLast = x[is_ship[z]];
+                    var yLast = y[is_ship[z]];
 
-                    console.log('-----------');
 
-                    console.log('y value at index [' + z + '] is: [' + y[is_ship[z]] + ']');
-                    console.log('x value at index [' + z + '] is: [' + x[is_ship[z]] + ']');
+                    if (xLast === undefined && yLast === undefined) {
+                        console.log('yx value at index [' + z + '] is: ' + yFirst + xFirst);
+                        console.log('-----------');
 
-                    console.log('-----------');
+                        $("#Lcell-" + yFirst + xFirst).addClass( "ship" );
+                        var nextCell1 = ++xFirst;
+                        $("#Lcell-" + yFirst + nextCell1).addClass( "ship" );
 
-                
+                    }
 
+                    else {
+                        console.log('yx value at index [' + z + '] is: ' + yLast + xLast );
+                        console.log('-----------');
+
+                        $("#Lcell-" + yLast + xLast).addClass( "ship" );
+                        var nextCell2 = ++xLast;
+                        $("#Lcell-" + yLast + nextCell2).addClass( "ship" );
+                    }
 
                 }
 
