@@ -12,7 +12,14 @@ $(document).ready(function () {
     var xFirst = [];
     var yFirst = [];
 
+
+    var xOpp = [];
+    var yOpp = [];
+    var xFirstOpp = [];
+    var yFirstOpp = [];
+
     var countBoat = 0;
+    var countBoatOpp = 0;
 
 
     function init() {
@@ -65,6 +72,7 @@ $(document).ready(function () {
             $("#js-ships-count").html(shipsInt + " ships");  // display ships count
 
             numberOfShips = shipsInt;
+
             console.log('numberOfShips' + numberOfShips)
 
         });
@@ -86,6 +94,12 @@ $(document).ready(function () {
             xFirst = [];
             yFirst = [];
 
+            countBoatOpp = 0;
+            xOpp = [];
+            yOpp = [];
+            xFirstOpp = [];
+            yFirstOpp = [];
+
             $('#js-grid-selection').addClass('lift-up');
             $("#js-expand-menu").css("opacity", "1");
 
@@ -98,6 +112,7 @@ $(document).ready(function () {
                 var string_tr = '<tr>';
 
                 $(string_tr).appendTo('#board-left');
+                $(string_tr).appendTo('#board-right');
                 RowNum += 1;
 
                 for (var j = 0; j < Cols; ++j) {
@@ -109,43 +124,24 @@ $(document).ready(function () {
                     var string_td = '<td id="Lcell-' + RowNum + CellNum + '" onclick="ClickCell(this)">';
                     $(string_td).appendTo('#board-left');
 
+                    var string_tdR = '<td id="Rcell-' + RowNum + CellNum + '" onclick="ClickCell(this)">';
+                    $(string_tdR).appendTo('#board-right');
+
                     var string_span = '<span></span>';
                     $(string_span).appendTo('#board-left');
+                    $(string_span).appendTo('#board-right');
 
                     var string_td_end = '</td>';
                     $(string_td_end).appendTo('#board-left');
+                    $(string_td_end).appendTo('#board-right');
 
                 }
 
                 //    document.getElementById("board").writeln("</tr>") ;
                 var string_tr_end = '</tr>';
                 $(string_tr_end).appendTo('#board-left');
+                $(string_tr_end).appendTo('#board-right');
             }
-            for (var iR = 0; iR < Rows; ++iR) {
-
-                var string_trR = '<tr>';
-                $(string_trR).appendTo('#board-right');
-
-                for (var jR = 0; jR < Cols; ++jR) {
-                    CellNum += 1;
-                    var string_tdR = '<td id="Rcell-' + CellNum + '" onclick="ClickCell(this)">';
-                    $(string_tdR).appendTo('#board-right');
-
-                    var string_spanR = '<span></span>';
-                    $(string_spanR).appendTo('#board-right');
-
-                    var string_td_endR = '</td>';
-                    $(string_td_endR).appendTo('#board-right');
-
-
-                }
-
-                //    document.getElementById("board").writeln("</tr>") ;
-                var string_tr_endR = '</tr>';
-                $(string_tr_endR).appendTo('#board-right');
-
-            }
-
 
             paiguta_uus_laev = function (sisend) {
 
@@ -189,12 +185,78 @@ $(document).ready(function () {
 
                             countBoat += 1;
 
+                            sisend[row][col] = 1;
+                            sisend[row][col + 1] = 1;
+
                             y.push([row]);
                             x.push([col]);
-                            yFirst.push([row]);
-                            xFirst.push([col]);
 
-                            console.log(countBoat + ' YX: ' + row + col);
+
+                            console.log(countBoat + ' YXesimene: ' + row + col);
+
+
+                        }
+
+                    }
+                }
+
+                sisend.forEach(function (rows) {
+                    console.log(rows);
+                });
+
+
+            };
+
+            paiguta_uus_laev_opp = function (sisend) {
+
+
+                for (var row = 0; row < GRID_x + 1; row++) {
+
+                    for (var col = 0; col < GRID_x + 1; col++) {
+
+
+                        var curr = sisend[row][col];
+
+                        var top1 = (row === 0) ? 0 : sisend[row - 1][col];
+                        var top2 = (row === 0) ? 0 : sisend[row - 1][col + 1];
+
+                        var bot1 = (row === GRID_x) ? 0 : sisend[row + 1][col];
+                        var bot2 = (row === GRID_x) ? 0 : sisend[row + 1][col + 1];
+
+                        var lef = (col === 0) ? 0 : sisend[row][col - 1];
+
+                        var rig1 = (col === GRID_x) ? undefined : sisend[row][col + 1];
+                        var rig2 = (col === GRID_x - 1) ? 0 : sisend[row][col + 2];
+
+
+                        if (curr === 0 && top1 === 0 && top2 === 0 && bot1 === 0 && bot2 === 0 && lef === 0 && rig2 === 0 && rig1 === 0) {
+
+                            countBoatOpp += 1;
+
+                            sisend[row][col] = 1;
+                            sisend[row][col + 1] = 1;
+
+                            yOpp.push([row]);
+                            xOpp.push([col]);
+
+                            console.log('---');
+                            console.log(countBoatOpp + ' YX: ' + row + col);
+
+
+                        }
+
+                        else if (curr === 1 && rig1 === 1) {
+
+                            countBoatOpp += 1;
+
+                            sisend[row][col] = 1;
+                            sisend[row][col + 1] = 1;
+
+                            yOpp.push([row]);
+                            xOpp.push([col]);
+
+
+                            console.log(countBoatOpp + ' YXesimene: ' + row + col);
 
 
                         }
@@ -672,6 +734,8 @@ $(document).ready(function () {
 
             var randomInput = current_state[Math.floor(Math.random() * current_state.length)];
 
+            var randomInput_opp = current_state[Math.floor(Math.random() * current_state.length)];
+
             var ships = current_state.length;
 
             console.log('max ships ' + ships);
@@ -680,11 +744,58 @@ $(document).ready(function () {
 
             paiguta_uus_laev(randomInput);
 
+            paiguta_uus_laev_opp(randomInput_opp);
 
-            function setup() {
+
+            function setup_player() {
+
+                //randomize the order of all ships
+                var is_ship = [0];
+                while (is_ship.length < countBoat) {
+                    var randomnumber = Math.ceil(Math.random() * countBoat -1)
+                    var found = false;
+                    for (var i = 0; i < is_ship.length; i++) {
+                        if (is_ship[i] == randomnumber) {
+                            found = true;
+                            break
+                        }
+                    }
+                    if (!found)is_ship[is_ship.length] = randomnumber;
+                }
+
+                console.log('-----------');
+                console.log(is_ship);
+                console.log('y: '+ y);
+                console.log('x: '+ x);
+                console.log('-----------');
+
+                //amount of ships chosen from ui will be taken from the randomized array of ships (var is_ship)
+                for (var z = 0; z < numberOfShips ; ++z) {
 
 
-                var is_ship = [];
+
+                    var xLast = x[is_ship[z]];
+                    var yLast = y[is_ship[z]];
+
+
+                    console.log('yx value at index [' + z + '] is: ' + yLast + xLast );
+                    console.log('-----------');
+
+                    $("#Lcell-" + yLast + xLast).addClass( "ship" );
+                    var nextCell = ++xLast;
+                    $("#Lcell-" + yLast + nextCell).addClass( "ship" );
+
+                }
+
+
+            }
+            setup_player();
+
+
+            function setup_opp() {
+
+                //randomize the order of all ships
+                var is_ship = [0];
                 while (is_ship.length < countBoat) {
                     var randomnumber = Math.ceil(Math.random() * countBoat)
                     var found = false;
@@ -698,73 +809,40 @@ $(document).ready(function () {
                 }
 
                 console.log('-----------');
-
-                       console.log(is_ship);
-
+                console.log(is_ship);
+                console.log('y: '+ yOpp);
+                console.log('x: '+ xOpp);
                 console.log('-----------');
 
-
-                for (var z = 0; z < numberOfShips; ++z) {
-
-                    var xLast = x[is_ship[z]];
-                    var yLast = y[is_ship[z]];
+                //amount of ships chosen from ui will be taken from the randomized array of ships (var is_ship)
+                for (var z = 0; z < numberOfShips ; ++z) {
 
 
-                    if (xLast === undefined && yLast === undefined) {
-                        console.log('yx value at index [' + z + '] is: ' + yFirst + xFirst);
-                        console.log('-----------');
 
-                        $("#Lcell-" + yFirst + xFirst).addClass( "ship" );
-                        var nextCell1 = ++xFirst;
-                        $("#Lcell-" + yFirst + nextCell1).addClass( "ship" );
+                    var xLast = xOpp[is_ship[z]];
+                    var yLast = yOpp[is_ship[z]];
 
-                    }
 
-                    else {
-                        console.log('yx value at index [' + z + '] is: ' + yLast + xLast );
-                        console.log('-----------');
+                    console.log('yx value at index [' + z + '] is: ' + yLast + xLast );
+                    console.log('-----------');
 
-                        $("#Lcell-" + yLast + xLast).addClass( "ship" );
-                        var nextCell2 = ++xLast;
-                        $("#Lcell-" + yLast + nextCell2).addClass( "ship" );
-                    }
+                    $("#Rcell-" + yLast + xLast).addClass( "ship" );
+                    var nextCell = ++xLast;
+                    $("#Rcell-" + yLast + nextCell).addClass( "ship" );
 
                 }
 
 
             }
+            setup_opp();
 
-            setup();
-
-
-            //      ships_layout();
 
         });
 
-    }
-
-    function ships_layout() {
-
-        var gridXY = sizeOfGrid * sizeOfGrid;
-
-        for (var i = 0; i < numberOfShips; ++i) {
-            var x = Math.floor((Math.random() * gridXY) + 0);
-            $("#Lcell-" + x).css("background-color", "red");
-            var c = x + 1;
-
-            $("#Lcell-" + c).css("background-color", "red");
-
-        }
-
-        $('#board-left').click(function () {
-            var cellId = $(this).attr("id");
-        })
-
 
     }
 
 
-/////////  calculations
 
 
 });
