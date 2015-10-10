@@ -7,16 +7,11 @@ $(document).ready(function () {
         state;
 
 
+    var x = [];
+    var y = [];
 
-
-
-    var x =[];
-    var xFirst =[];
-    var y =[];
-    var yFirst =[];
 
     var countBoat = 0;
-
 
 
     function init() {
@@ -60,7 +55,6 @@ $(document).ready(function () {
         });
 
 
-
         $(".js-ships-count").click(function () {
             $('#js-start-game').removeClass('disabled');
             var shipsCount = $(this).attr('id'),
@@ -70,7 +64,7 @@ $(document).ready(function () {
             $("#js-ships-count").html(shipsInt + " ships");  // display ships count
 
             numberOfShips = shipsInt;
-console.log('numberOfShips' + numberOfShips)
+            console.log('numberOfShips' + numberOfShips)
 
         });
 
@@ -86,8 +80,8 @@ console.log('numberOfShips' + numberOfShips)
         $("#js-start-game").click(function () {
 
             countBoat = 0;
-            x =[];
-            y =[];
+            x = [];
+            y = [];
 
             $('#js-grid-selection').addClass('lift-up');
             $("#js-expand-menu").css("opacity", "1");
@@ -101,15 +95,15 @@ console.log('numberOfShips' + numberOfShips)
                 var string_tr = '<tr>';
 
                 $(string_tr).appendTo('#board-left');
-                RowNum +=1;
+                RowNum += 1;
 
                 for (var j = 0; j < Cols; ++j) {
 
-                    CellNum +=1;
+                    CellNum += 1;
                     if (CellNum === sizeOfGrid) {
                         CellNum = 0;
                     }
-                    var string_td = '<td id="Lcell-'+ RowNum + CellNum + '" onclick="ClickCell(this)">';
+                    var string_td = '<td id="Lcell-' + RowNum + CellNum + '" onclick="ClickCell(this)">';
                     $(string_td).appendTo('#board-left');
 
                     var string_span = '<span></span>';
@@ -130,7 +124,7 @@ console.log('numberOfShips' + numberOfShips)
                 $(string_trR).appendTo('#board-right');
 
                 for (var jR = 0; jR < Cols; ++jR) {
-                    CellNum +=1;
+                    CellNum += 1;
                     var string_tdR = '<td id="Rcell-' + CellNum + '" onclick="ClickCell(this)">';
                     $(string_tdR).appendTo('#board-right');
 
@@ -169,17 +163,12 @@ console.log('numberOfShips' + numberOfShips)
                         var lef = (col === 0) ? 0 : sisend[row][col - 1];
 
                         var rig1 = (col === GRID_x) ? undefined : sisend[row][col + 1];
-                        var rig2 = (col === GRID_x-1) ? 0 : sisend[row][col + 2];
+                        var rig2 = (col === GRID_x - 1) ? 0 : sisend[row][col + 2];
 
 
+                        if (curr === 0 && top1 === 0 && top2 === 0 && bot1 === 0 && bot2 === 0 && lef === 0 && rig2 === 0 && rig1 === 0) {
 
-
-
-                        if (curr === 0 && top1 === 0 && top2 === 0 && bot1 === 0 && bot2 === 0 && lef === 0 && rig2 === 0 && rig1 === 0)
-
-                        {
-
-                            var paat = '+ 1 boats';
+                            countBoat += 1;
 
                             sisend[row][col] = 1;
                             sisend[row][col + 1] = 1;
@@ -188,17 +177,20 @@ console.log('numberOfShips' + numberOfShips)
                             x.push([col]);
 
                             console.log('---');
-                            console.log('YX:' + row + col);
+                            console.log(countBoat + ' YX: ' + row + col);
 
-                            countBoat+=1;
 
                         }
 
-                        else if(curr === 1 && rig1 === 1) {
+                        else if (curr === 1 && rig1 === 1) {
 
-                            yFirst.push([row]);
-                            xFirst.push([col]);
-                            console.log('YXfirst:' + row + col);
+                            countBoat += 1;
+
+                            y.push([row]);
+                            x.push([col]);
+
+                            console.log(countBoat + ' YX: ' + row + col);
+
 
                         }
 
@@ -210,14 +202,12 @@ console.log('numberOfShips' + numberOfShips)
                 });
 
 
-
             };
-
 
 
             switch (true) {
                 case sizeOfGrid === 3:
-                     state = [
+                    state = [
                         [
                             [1, 1, 0],
                             [0, 0, 0],
@@ -231,7 +221,7 @@ console.log('numberOfShips' + numberOfShips)
                     ];
                     break;
                 case sizeOfGrid === 4:
-                     state = [
+                    state = [
                         [
                             [1, 1, 0, 0],
                             [0, 0, 0, 0],
@@ -253,7 +243,7 @@ console.log('numberOfShips' + numberOfShips)
                     ];
                     break;
                 case sizeOfGrid === 5:
-                     state = [
+                    state = [
 
                         [
                             [1, 1, 0, 0, 0],
@@ -286,7 +276,7 @@ console.log('numberOfShips' + numberOfShips)
                     ];
                     break;
                 case sizeOfGrid === 6:
-                     state = [
+                    state = [
 
                         [
                             [1, 1, 0, 0, 0, 0],
@@ -331,7 +321,7 @@ console.log('numberOfShips' + numberOfShips)
                     ];
                     break;
                 case sizeOfGrid === 7:
-                     state = [
+                    state = [
 
                         [
                             [1, 1, 0, 0, 0, 0, 0],
@@ -390,7 +380,7 @@ console.log('numberOfShips' + numberOfShips)
                     ];
                     break;
                 case sizeOfGrid === 8:
-                     state = [
+                    state = [
 
                         [
                             [1, 1, 0, 0, 0, 0, 0, 0],
@@ -465,7 +455,7 @@ console.log('numberOfShips' + numberOfShips)
                     ];
                     break;
                 case sizeOfGrid === 9:
-                     state = [
+                    state = [
 
                         [
                             [1, 1, 0, 0, 0, 0, 0, 0, 0],
@@ -558,7 +548,7 @@ console.log('numberOfShips' + numberOfShips)
                     ];
                     break;
                 case sizeOfGrid === 10:
-                     state = [
+                    state = [
 
                         [
                             [1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -673,9 +663,6 @@ console.log('numberOfShips' + numberOfShips)
             }
 
 
-
-
-
             var current_state = state;
 
             var randomInput = current_state[Math.floor(Math.random() * current_state.length)];
@@ -691,41 +678,38 @@ console.log('numberOfShips' + numberOfShips)
 
             function setup() {
 
-                var chosenBoats = numberOfShips;
-                /*
+
                 var is_ship = [];
-                while(is_ship.length < chosenBoats){
-                    var randomnumber=Math.ceil(Math.random()*countBoat)
-                    var found=false;
-                    for(var i=0;i<is_ship.length;i++){
-                        if(is_ship[i]==randomnumber){found=true;break}
+                while (is_ship.length < countBoat) {
+                    var randomnumber = Math.ceil(Math.random() * countBoat)
+                    var found = false;
+                    for (var i = 0; i < is_ship.length; i++) {
+                        if (is_ship[i] == randomnumber) {
+                            found = true;
+                            break
+                        }
                     }
-                    if(!found)is_ship[is_ship.length]=randomnumber;
+                    if (!found)is_ship[is_ship.length] = randomnumber;
                 }
-*/
-                console.log('-----------');
 
-           //     console.log(is_ship);
 
                 console.log('-----------');
 
 
-                for (var z = 0; z < is_ship.length; ++z) {
-
-
-                    console.log(is_ship[z]);
-
-                 //   console.log('Yfirst value at index [' + z + '] is: [' + yFirst[z] + ']');
-                //    console.log('Xfirst value at index [' + z + '] is: [' + xFirst[z] + ']');
-                 //   console.log('y value at index [' + z + '] is: [' + y[is_ship[z]] + ']');
-                 //  console.log('x value at index [' + z + '] is: [' + x[is_ship[z]] + ']');
+                for (var z = 0; z < numberOfShips; ++z) {
 
 
                     console.log('-----------');
 
+                    console.log('y value at index [' + z + '] is: [' + y[is_ship[z]] + ']');
+                    console.log('x value at index [' + z + '] is: [' + x[is_ship[z]] + ']');
+
+                    console.log('-----------');
+
+                
+
+
                 }
-
-
 
 
             }
@@ -733,7 +717,7 @@ console.log('numberOfShips' + numberOfShips)
             setup();
 
 
-      //      ships_layout();
+            //      ships_layout();
 
         });
 
@@ -744,39 +728,23 @@ console.log('numberOfShips' + numberOfShips)
         var gridXY = sizeOfGrid * sizeOfGrid;
 
         for (var i = 0; i < numberOfShips; ++i) {
-            var x =  Math.floor((Math.random() * gridXY) + 0);
-            $("#Lcell-"+ x ).css("background-color","red");
-            var c = x+1;
+            var x = Math.floor((Math.random() * gridXY) + 0);
+            $("#Lcell-" + x).css("background-color", "red");
+            var c = x + 1;
 
-            $("#Lcell-"+ c ).css("background-color","red");
+            $("#Lcell-" + c).css("background-color", "red");
 
         }
 
-        $('#board-left').click(function() {
+        $('#board-left').click(function () {
             var cellId = $(this).attr("id");
         })
 
-        
 
     }
 
 
-
-
-
 /////////  calculations
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 });
