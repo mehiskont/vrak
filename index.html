@@ -19,6 +19,47 @@
 </head>
 <body>
 
+<div class="player-stats">
+    <div class="text-center">
+        moves:
+    </div>
+    <div class="players-moves text-center">
+0
+    </div>
+    <div class="text-center red">
+       points:
+    </div>
+    <div class="players-ships-shot text-center red">
+        0
+    </div>
+    <div class="text-center">
+       ships left:
+    </div>
+    <div class="players-ships-left text-center">
+
+    </div>
+</div>
+<div class="opponents-stats">
+    <div class="text-center">
+        moves:
+    </div>
+    <div class="moves text-center">
+        0
+    </div>
+    <div class="text-center red">
+        points:
+    </div>
+    <div class="opponents-ships-shot text-center red">
+        0
+    </div>
+    <div class="text-center">
+        ships left:
+    </div>
+    <div class="opponents-ships-left text-center">
+
+    </div>
+</div>
+
 <div id="js-grid-selection" class="choose-grid">
 
     <div class="table-row">
@@ -101,7 +142,8 @@
 </div>
 
 <div class="board-wrap">
-    <div class="table-cell">
+    <div class="table-cell text-center">
+        <h1 class="transparent">your navy</h1>
         <table id="board-left" class="board-left">
             <script>
                 function ClickCell(cell) {
@@ -110,7 +152,8 @@
             </script>
         </table>
     </div>
-    <div class="table-cell">
+    <div class="table-cell text-center">
+        <h1 class="transparent">opponents</h1>
         <table id="board-right" class="board-right">
             <script>
                 function ClickCell(cell) {

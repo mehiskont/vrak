@@ -14,6 +14,52 @@
     transition: all 0.15s;
 
 }
+h1 {
+    display: inline-block;
+    font-size: 15px;
+    transition: all 0.9s;
+    margin-bottom: 24px !important;
+}
+.transparent {
+    opacity: 0;
+}
+
+.player-stats {
+    background-color: #ccc;
+    border: 1px solid #eee;
+    height: 250px;
+    width: 70px;
+    position: fixed;
+    left: -70px;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    border-radius: 2px;
+    transition: all 0.15s;
+}
+
+.opponents-stats {
+    background-color: #ccc;
+    border: 1px solid #eee;
+    height: 250px;
+    width: 70px;
+    position: fixed;
+    right: -70px;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    border-radius: 2px;
+    transition: all 0.15s;
+}
+.player-stats.slide-in {
+    transform: translate3d(70px, 0, 0);
+}
+.opponents-stats.slide-in {
+    transform: translate3d(-70px, 0, 0);
+}
+.slide-in div {
+    padding: 2px 0;
+}
 .board-wrap {
     display: table;
     width: 100%;
@@ -90,7 +136,12 @@ table td {
     background-color: #fff;
 }
 .ship {
-  background-color: #ffc40d !important;
+  background-color: #b94a48 !important;
+}
+
+.red {
+    background-color: #b94a48 !important;
+    color: #fff;
 }
 
 .canvas-wrap {
@@ -119,8 +170,15 @@ table td {
 
 .board-left {
    margin:auto;
+    box-shadow: 0 0 34px 0 #ccc;
+}
+.board-left .ship {
+
+    background-color: #ffc40d !important;
+
 }
 
 .board-right {
 margin: auto;
+    box-shadow: 0 0 34px 0 #ccc;
 }
