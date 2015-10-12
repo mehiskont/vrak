@@ -51,15 +51,8 @@ h1 {
     border-radius: 2px;
     transition: all 0.15s;
 }
-.player-stats.slide-in {
-    transform: translate3d(70px, 0, 0);
-}
-.opponents-stats.slide-in {
-    transform: translate3d(-70px, 0, 0);
-}
-.slide-in div {
-    padding: 2px 0;
-}
+
+
 .board-wrap {
     display: table;
     width: 100%;
@@ -135,14 +128,20 @@ table#board-left td,table#board-right td {
 table td {
     background-color: #fff;
 }
-.ship {
+.ship-opponent {
   background-color: #b94a48 !important;
 }
-
+.ship-player {
+    background-color: #b94a48 !important;
+}
+.ship-after {
+    background-color: #b94a48 !important;
+}
 .red {
     background-color: #b94a48 !important;
     color: #fff;
 }
+
 
 .canvas-wrap {
     text-align: center;
@@ -171,14 +170,89 @@ table td {
 .board-left {
    margin:auto;
     box-shadow: 0 0 34px 0 #ccc;
+    cursor: pointer;
 }
 .board-left .ship {
 
-    background-color: #ffc40d !important;
+    background-color: #ffc40d;
 
 }
 
 .board-right {
 margin: auto;
     box-shadow: 0 0 34px 0 #ccc;
+    cursor: pointer;
+}
+
+
+
+.flip {
+    -webkit-perspective: 800;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+.flip .card.flipped {
+    -webkit-transform: rotatey(-180deg);
+}
+.flip .card {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.5s;
+}
+.flip .card .face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden ;
+    z-index: 2;
+    font-size: 3em;
+    text-align: center;
+    line-height: 200px;
+}
+.flip .card .front {
+    position: absolute;
+    z-index: 1;
+    color: #000;
+
+}
+.flip .card .back {
+    -webkit-transform: rotatey(-180deg);
+    color: #000;
+
+}
+
+td:hover {
+    background-color: #eee;
+}
+.opp-missed {
+    background-color: #ccc;
+}
+.opp-missed:hover {
+    background-color: #ccc;
+}
+.player-missed {
+    background-color: #ccc;
+}
+.player-missed:hover {
+    background-color: #ccc;
+}
+
+.game-stats {
+    width: 650px;
+    position: fixed;
+    height: 300px;
+    background-color: #ccc;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    bottom: -250px;
+    left: 0;
+    right: 0;
+    margin: auto;
 }

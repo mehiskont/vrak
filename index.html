@@ -16,49 +16,10 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
-
-<div class="player-stats">
-    <div class="text-center">
-        moves:
-    </div>
-    <div class="players-moves text-center">
-0
-    </div>
-    <div class="text-center red">
-       points:
-    </div>
-    <div class="players-ships-shot text-center red">
-        0
-    </div>
-    <div class="text-center">
-       ships left:
-    </div>
-    <div class="players-ships-left text-center">
-
-    </div>
-</div>
-<div class="opponents-stats">
-    <div class="text-center">
-        moves:
-    </div>
-    <div class="moves text-center">
-        0
-    </div>
-    <div class="text-center red">
-        points:
-    </div>
-    <div class="opponents-ships-shot text-center red">
-        0
-    </div>
-    <div class="text-center">
-        ships left:
-    </div>
-    <div class="opponents-ships-left text-center">
-
-    </div>
-</div>
 
 <div id="js-grid-selection" class="choose-grid">
 
@@ -143,25 +104,31 @@
 
 <div class="board-wrap">
     <div class="table-cell text-center">
-        <h1 class="transparent">your navy</h1>
+        <h1 class="transparent">your navy (<span id="players-navy"></span>)</h1>
         <table id="board-left" class="board-left">
-            <script>
-                function ClickCell(cell) {
-                    cell.style.backgroundColor = "#ccc" ;
-                }
-            </script>
+
         </table>
+    </div>
+    <div class="flip">
+        <div class="card">
+            <div class="face front">
+               <i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="face back">
+                <i class="fa fa-chevron-left"></i>
+            </div>
+        </div>
     </div>
     <div class="table-cell text-center">
-        <h1 class="transparent">opponents</h1>
+        <h1 class="transparent">opponents (<span id="opponents-navy"></span>)</h1>
         <table id="board-right" class="board-right">
-            <script>
-                function ClickCell(cell) {
-                    cell.style.backgroundColor = "#ccc" ;
-                }
-            </script>
+
         </table>
     </div>
+</div>
+
+<div class="game-stats">
+
 </div>
 </body>
 </html>
