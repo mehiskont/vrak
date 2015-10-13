@@ -4,7 +4,10 @@ $(document).ready(function () {
     var grid = '#js-grid-selection',
         numberOfShips = '',
         sizeOfGrid = '',
-        state;
+        state,
+        sizeOfGridXY;
+
+
 
     var oppshipsLocation = [];
     var oppshipsLocationRight = [];
@@ -31,6 +34,7 @@ $(document).ready(function () {
     var opponents_moves = 0;
     var opponents_points = 0;
 
+    var opponents_random_moves;
 
 
     function init() {
@@ -40,38 +44,43 @@ $(document).ready(function () {
 
     init();
 
+
+
+
     function initial_setup() {
 
 
-        $(".js-grid-btn").click(function () {
+        $("#js-grid-btn").change(function () {
 
             $('#js-start-game').addClass('disabled');
             $("#js-ships-count").html('');
 
-            var matrixSize = $(this).attr('id'),
-                chosenSize = matrixSize.replace("size", ""),
-                gridX = parseInt(chosenSize),
+            var matrixSize = $(this).val(),
+
+                gridX = parseInt(matrixSize),
                 MaxOfShips = gridX;
 
+            console.log(matrixSize);
 
             $("#js-box-size").html(MaxOfShips + "x" + MaxOfShips); //display grid size
 
             sizeOfGrid = MaxOfShips;
-
+            sizeOfGridXY = gridX*gridX;
             choose_settings();
 
             function choose_settings() {
                 for (var i = 1; i < MaxOfShips; i++) {
-                    $('#js-ships-list').find("li:nth-child(" + i + ")").addClass('active');
+                    $('#js-ships-list').find("button:nth-child(" + i + ")").removeClass('disabled');
                 }
 
                 for (var c = MaxOfShips; c < 10; c++) {
-                    $('#js-ships-list').find("li:nth-child(" + c + ")").removeClass('active');
+                    $('#js-ships-list').find("button:nth-child(" + c + ")").addClass('disabled');
                 }
             }
 
 
         });
+
 
 
         $(".js-ships-count").click(function () {
@@ -86,7 +95,6 @@ $(document).ready(function () {
             numberOfShips = shipsInt;
 
             console.log('numberOfShips' + numberOfShips)
-
         });
 //restart game
         $("#js-expand-menu").click(function () {
@@ -126,7 +134,24 @@ $(document).ready(function () {
             opponents_moves = 0;
             opponents_points = 0;
 
+          //  var opponents_random_moves = Math.floor((Math.random() * sizeOfGridXY) + 1);
 
+            for (var a=[],i=0;i<sizeOfGridXY;++i) a[i]=i;
+
+            function shuffle(array) {
+                var tmp, current, top = array.length;
+                if(top) while(--top) {
+                    current = Math.floor(Math.random() * (top + 1));
+                    tmp = array[current];
+                    array[current] = array[top];
+                    array[top] = tmp;
+                }
+                return array;
+            }
+
+            a = shuffle(a);
+
+           opponents_random_moves = a;
 
 
             $('#js-grid-selection').addClass('lift-up');
@@ -139,6 +164,8 @@ $(document).ready(function () {
             var Cols = sizeOfGrid;
             var CellNum = -1;
             var RowNum = -1;
+            var cellnumber = 0;
+
             for (var i = 0; i < Rows; ++i) {
 
                 var string_tr = '<tr>';
@@ -149,14 +176,15 @@ $(document).ready(function () {
 
                 for (var j = 0; j < Cols; ++j) {
 
+                    cellnumber += 1;
                     CellNum += 1;
                     if (CellNum === sizeOfGrid) {
                         CellNum = 0;
                     }
-                    var string_td = '<td class="square" id="Lcell-' + RowNum + CellNum + '">';
+                    var string_td = '<td class="square ' + cellnumber + '" id="Lcell-' + RowNum + CellNum + '">';
                     $(string_td).appendTo('#board-left');
 
-                    var string_tdR = '<td class="square" id="Rcell-' + RowNum + CellNum + '">';
+                    var string_tdR = '<td class="square " id="Rcell-' + RowNum + CellNum + '">';
                     $(string_tdR).appendTo('#board-right');
 
                     var string_span = '<span></span>';
@@ -166,6 +194,7 @@ $(document).ready(function () {
                     var string_td_end = '</td>';
                     $(string_td_end).appendTo('#board-left');
                     $(string_td_end).appendTo('#board-right');
+
 
                 }
 
@@ -783,8 +812,8 @@ $(document).ready(function () {
 
                 //randomize the order of all ships
                 var is_ship = [0];
-                while (is_ship.length < countBoat) {
-                    var randomnumber = Math.ceil(Math.random() * countBoat -1)
+                while (is_ship.length < countBoat +1) {
+                    var randomnumber = Math.ceil(Math.random() * countBoat)
                     var found = false;
                     for (var i = 0; i < is_ship.length; i++) {
                         if (is_ship[i] == randomnumber) {
@@ -794,15 +823,19 @@ $(document).ready(function () {
                     }
                     if (!found)is_ship[is_ship.length] = randomnumber;
                 }
+                if (sizeOfGrid === 4) {
+                    is_ship.push(2);
+                }
+                for (var r = 0; r < 2 ; ++r) {
+                    if (5 < sizeOfGrid < 8) {
+                        var maxValue = Math.max.apply(this, is_ship);
 
-                if ( 4 < sizeOfGrid < 8 ) {
-                    var maxValue = Math.max.apply(this, is_ship);
-
-                    var maxValIndex = $.inArray(maxValue,is_ship);
+                        var maxValIndex = $.inArray(maxValue, is_ship);
 
 
-                    if (maxValIndex > -1) {
-                        is_ship.splice(maxValIndex, 1);
+                        if (maxValIndex > -1) {
+                            is_ship.splice(maxValIndex, 1);
+                        }
                     }
                 }
 
@@ -849,8 +882,8 @@ $(document).ready(function () {
 
                 //randomize the order of all ships
                 var is_ship = [0];
-                while (is_ship.length < countBoat) {
-                    var randomnumber = Math.ceil(Math.random() * countBoat -1)
+                while (is_ship.length < countBoat +1) {
+                    var randomnumber = Math.ceil(Math.random() * countBoat)
                     var found = false;
                     for (var i = 0; i < is_ship.length; i++) {
                         if (is_ship[i] == randomnumber) {
@@ -861,17 +894,24 @@ $(document).ready(function () {
                     if (!found)is_ship[is_ship.length] = randomnumber;
                 }
 
+                if (sizeOfGrid === 4) {
+                    is_ship.push(2);
+                }
+
                 // Get the max value from the array and remove it
-                if ( 4 < sizeOfGrid < 8 ) {
-                    var maxValue = Math.max.apply(this, is_ship);
+                for (var r = 0; r < 2 ; ++r) {
+                    if ( 5 < sizeOfGrid < 8 ) {
+                        var maxValue = Math.max.apply(this, is_ship);
 
-                    var maxValIndex = $.inArray(maxValue,is_ship);
+                        var maxValIndex = $.inArray(maxValue,is_ship);
 
 
-                    if (maxValIndex > -1) {
-                        is_ship.splice(maxValIndex, 1);
+                        if (maxValIndex > -1) {
+                            is_ship.splice(maxValIndex, 1);
+                        }
                     }
                 }
+
 
 
                 console.log('-----------');
@@ -922,73 +962,64 @@ $(document).ready(function () {
 
 
 
-        function init_turns() {
-            players_turn ();
+      players_turn();
+
+
+
+        function players_turn () {
+
+
+            $('#board-left').addClass('disabled')
+            $('#board-right').removeClass('disabled')
+            $('.card').removeClass('flipped');
+
+            $('.board-right td').one( "click", function() {
+                var myoluline_asi = $(this);
+
+                var cell_id =  $(this).attr("id");
+                var c_id = cell_id.replace('Rcell-','');
+
+
+                if(oppshipsLocation.indexOf(c_id) != -1 )
+                {
+
+                    $(this).addClass('ship-opponent');
+                    $(this).next().addClass('step' + c_id);
+                    $('.step' + c_id).next().addClass('ship-after');
+                }
+                else if (oppshipsLocationRight.indexOf(c_id) != -1)
+                {
+                    $(this).addClass('ship-opponent');
+                    $(this).prev().addClass('step' + c_id);
+                    $('.step' + c_id).prev().addClass('ship-after');
+                }
+                else {
+                    $(this).addClass('player-missed');
+                    opponents_turn ();
+                }
+
+                var player_points = $('.ship-opponent').length;
+
+                var player_missed = $('.player-missed').length;
+                $('.players-moves').html(player_missed);
+
+                var opp_left = numberOfShips - player_points;
+
+                $('#opponents-navy').html(opp_left);
+
+                if (opp_left === 0){
+                    // you won
+                }
+
+
+
+
+            });
+
+
+
 
         }
-
-        init_turns();
-
-
-function players_turn () {
-
-
-    $('#board-left').addClass('disabled')
-    $('#board-right').removeClass('disabled')
-    $('.card').removeClass('flipped');
-
-    $(document).on('click','.board-right td', function () {
-
-        var cell_id =  $(this).attr("id");
-        var c_id = cell_id.replace('Rcell-','');
-
-
-        if(oppshipsLocation.indexOf(c_id) != -1 )
-        {
-
-            $(this).addClass('ship-opponent');
-            $(this).next().addClass('step' + c_id);
-            $('.step' + c_id).next().addClass('ship-after');
-
-
-
-        }
-
-        else if (oppshipsLocationRight.indexOf(c_id) != -1)
-        {
-
-            $(this).addClass('ship-opponent');
-            $(this).prev().addClass('step' + c_id);
-            $('.step' + c_id).prev().addClass('ship-after');
-
-        }
-
-        else {
-            $(this).addClass('player-missed');
-            opponents_turn ();
-        }
-
-        var player_points = $('.ship-opponent').length;
-
-        var player_missed = $('.player-missed').length;
-        $('.players-moves').html(player_missed);
-
-        var opp_left = numberOfShips - player_points;
-
-        $('#opponents-navy').html(opp_left);
-
-        if (opp_left = 0){
-// you won
-        }
-
-
-
-
-        return false;
-
-
-    });
-}
 
 
         function opponents_turn () {
@@ -997,7 +1028,12 @@ function players_turn () {
             $('#board-left').removeClass('disabled')
             $('.card').addClass('flipped');
 
-            $(document).on('click','.board-left td', function () {
+
+            var opponents_chosen_steps = opponents_random_moves.pop();
+            console.log(opponents_chosen_steps);
+
+            
+            $('.board-left td').on( "click", function() {
 
 
                 var cell_id =  $(this).attr("id");
@@ -1026,6 +1062,7 @@ function players_turn () {
 
                     $(this).addClass('opp-missed');
                     players_turn ();
+
                 }
 
                 var opponents_points = $('.ship-player').length;
@@ -1036,17 +1073,15 @@ function players_turn () {
                 var player_left = numberOfShips - opponents_points;
                 $('#players-navy').html(player_left);
 
-                if (player_left = 0){
+                if (player_left === 0){
                 // you lost
                 }
 
 
 
 
-                return false;
 
             });
-
 
 
         }

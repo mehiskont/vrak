@@ -173,9 +173,10 @@ table td {
     cursor: pointer;
 }
 .board-left .ship {
-
+    background: url('../img/ship.svg');
     background-color: #ffc40d;
-
+    background-size: 29px;
+    background-repeat: no-repeat;
 }
 
 .board-right {
@@ -255,4 +256,31 @@ td:hover {
     left: 0;
     right: 0;
     margin: auto;
+}
+
+@media only screen and (max-width: 700px) {
+   .table-cell {
+   //    display: block;
+   }
+    .choose-grid {
+        width: 100%;
+    }
+    .lift-up {
+        transform: translate3d(0, -448px, 0);
+    }
+    .elements-center {
+        vertical-align: bottom;
+        padding-bottom: 30px;
+    }
+    .board-wrap .table-cell {
+        display: block;
+        margin: auto;
+    }
+    .board-wrap {
+        height: initial;
+        top: 86px;
+    }
+    .flip {
+        display: none;
+    }
 }
