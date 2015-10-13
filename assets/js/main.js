@@ -8,7 +8,6 @@ $(document).ready(function () {
         sizeOfGridXY;
 
 
-
     var oppshipsLocation = [];
     var oppshipsLocationRight = [];
     var playershipsLocation = [];
@@ -45,8 +44,6 @@ $(document).ready(function () {
     init();
 
 
-
-
     function initial_setup() {
 
 
@@ -65,7 +62,7 @@ $(document).ready(function () {
             $("#js-box-size").html(MaxOfShips + "x" + MaxOfShips); //display grid size
 
             sizeOfGrid = MaxOfShips;
-            sizeOfGridXY = gridX*gridX;
+            sizeOfGridXY = gridX * gridX;
             choose_settings();
 
             function choose_settings() {
@@ -80,7 +77,6 @@ $(document).ready(function () {
 
 
         });
-
 
 
         $(".js-ships-count").click(function () {
@@ -101,7 +97,6 @@ $(document).ready(function () {
 
             $(this).css("opacity", "0");
             $('#js-grid-selection').removeClass('lift-up');
-
 
 
             $('#board-left').empty();
@@ -134,13 +129,13 @@ $(document).ready(function () {
             opponents_moves = 0;
             opponents_points = 0;
 
-          //  var opponents_random_moves = Math.floor((Math.random() * sizeOfGridXY) + 1);
+            //  var opponents_random_moves = Math.floor((Math.random() * sizeOfGridXY) + 1);
 
-            for (var a=[],i=0;i<sizeOfGridXY;++i) a[i]=i;
+            for (var a = [], i = 0; i < sizeOfGridXY; ++i) a[i] = i;
 
             function shuffle(array) {
                 var tmp, current, top = array.length;
-                if(top) while(--top) {
+                if (top) while (--top) {
                     current = Math.floor(Math.random() * (top + 1));
                     tmp = array[current];
                     array[current] = array[top];
@@ -151,7 +146,7 @@ $(document).ready(function () {
 
             a = shuffle(a);
 
-           opponents_random_moves = a;
+            opponents_random_moves = a;
 
 
             $('#js-grid-selection').addClass('lift-up');
@@ -812,7 +807,7 @@ $(document).ready(function () {
 
                 //randomize the order of all ships
                 var is_ship = [0];
-                while (is_ship.length < countBoat +1) {
+                while (is_ship.length < countBoat + 1) {
                     var randomnumber = Math.ceil(Math.random() * countBoat)
                     var found = false;
                     for (var i = 0; i < is_ship.length; i++) {
@@ -826,7 +821,7 @@ $(document).ready(function () {
                 if (sizeOfGrid === 4) {
                     is_ship.push(2);
                 }
-                for (var r = 0; r < 2 ; ++r) {
+                for (var r = 0; r < 2; ++r) {
                     if (5 < sizeOfGrid < 8) {
                         var maxValue = Math.max.apply(this, is_ship);
 
@@ -841,48 +836,47 @@ $(document).ready(function () {
 
                 console.log('-----------');
                 console.log(is_ship);
-                console.log('y: '+ y);
-                console.log('x: '+ x);
+                console.log('y: ' + y);
+                console.log('x: ' + x);
                 console.log('-----------');
 
                 //amount of ships chosen from ui will be taken from the randomized array of ships (var is_ship)
-                for (var z = 0; z < numberOfShips ; ++z) {
+                for (var z = 0; z < numberOfShips; ++z) {
 
 
                     var xLast = x[is_ship[z]];
                     var yLast = y[is_ship[z]];
 
 
-                    console.log('yx value at index [' + z + '] is: ' + yLast + xLast );
+                    console.log('yx value at index [' + z + '] is: ' + yLast + xLast);
                     console.log('-----------');
 
                     var yx_sum = yLast + xLast;
                     playershipsLocation.push(yx_sum);
 
 
-
-
-                    $("#Lcell-" + yLast + xLast).addClass( "ship" );
+                    $("#Lcell-" + yLast + xLast).addClass("ship");
                     var nextCell = ++xLast;
-                    $("#Lcell-" + yLast + nextCell).addClass( "ship" );
+                    $("#Lcell-" + yLast + nextCell).addClass("ship");
 
                     yx_sum = yLast + xLast;
                     playershipsLocationRight.push(yx_sum);
-               //     console.log('playershipsLocationRight'+playershipsLocationRight)
+                    //     console.log('playershipsLocationRight'+playershipsLocationRight)
 
                 }
 
 
             }
+
             setup_player();
 
-      //    console.log('player ships location :' +  playershipsLocation);
+            //    console.log('player ships location :' +  playershipsLocation);
 
             function setup_opp() {
 
                 //randomize the order of all ships
                 var is_ship = [0];
-                while (is_ship.length < countBoat +1) {
+                while (is_ship.length < countBoat + 1) {
                     var randomnumber = Math.ceil(Math.random() * countBoat)
                     var found = false;
                     for (var i = 0; i < is_ship.length; i++) {
@@ -899,11 +893,11 @@ $(document).ready(function () {
                 }
 
                 // Get the max value from the array and remove it
-                for (var r = 0; r < 2 ; ++r) {
-                    if ( 5 < sizeOfGrid < 8 ) {
+                for (var r = 0; r < 2; ++r) {
+                    if (5 < sizeOfGrid < 8) {
                         var maxValue = Math.max.apply(this, is_ship);
 
-                        var maxValIndex = $.inArray(maxValue,is_ship);
+                        var maxValIndex = $.inArray(maxValue, is_ship);
 
 
                         if (maxValIndex > -1) {
@@ -913,23 +907,21 @@ $(document).ready(function () {
                 }
 
 
-
                 console.log('-----------');
                 console.log(is_ship);
-                console.log('y: '+ yOpp);
-                console.log('x: '+ xOpp);
+                console.log('y: ' + yOpp);
+                console.log('x: ' + xOpp);
                 console.log('-----------');
 
                 //amount of ships chosen from ui will be taken from the randomized array of ships (var is_ship)
-                for (var z = 0; z < numberOfShips ; ++z) {
-
+                for (var z = 0; z < numberOfShips; ++z) {
 
 
                     var xLast = xOpp[is_ship[z]];
                     var yLast = yOpp[is_ship[z]];
 
 
-                    console.log('yx value at index [' + z + '] is: ' + yLast + xLast );
+                    console.log('yx value at index [' + z + '] is: ' + yLast + xLast);
                     console.log('-----------');
 
                     var yx_sum = yLast + xLast;
@@ -940,15 +932,15 @@ $(document).ready(function () {
                     oppshipsLocationRight.push(yx_sum);
 
 
-
                 }
 
 
             }
+
             setup_opp();
 
-      //      console.log('Opponent ships location :' +  oppshipsLocation);
-       //     console.log('Opponent ships location :' +  oppshipsLocationRight);
+            //      console.log('Opponent ships location :' +  oppshipsLocation);
+            //     console.log('Opponent ships location :' +  oppshipsLocationRight);
 
             gameplay();
 
@@ -960,42 +952,44 @@ $(document).ready(function () {
 
     function gameplay() {
 
+        var playersTurn = true;
+
+        players_turn();
 
 
-      players_turn();
-
-
-
-        function players_turn () {
+        function players_turn() {
 
 
             $('#board-left').addClass('disabled')
             $('#board-right').removeClass('disabled')
             $('.card').removeClass('flipped');
 
-            $('.board-right td').one( "click", function() {
+            $('.board-right td').on("click", function () {
+                if(playersTurn === false) {
+                    return;
+                }
+
                 var myoluline_asi = $(this);
 
-                var cell_id =  $(this).attr("id");
-                var c_id = cell_id.replace('Rcell-','');
+                var cell_id = $(this).attr("id");
+                var c_id = cell_id.replace('Rcell-', '');
 
 
-                if(oppshipsLocation.indexOf(c_id) != -1 )
-                {
+                if (oppshipsLocation.indexOf(c_id) != -1) {
 
                     $(this).addClass('ship-opponent');
                     $(this).next().addClass('step' + c_id);
                     $('.step' + c_id).next().addClass('ship-after');
                 }
-                else if (oppshipsLocationRight.indexOf(c_id) != -1)
-                {
+                else if (oppshipsLocationRight.indexOf(c_id) != -1) {
                     $(this).addClass('ship-opponent');
                     $(this).prev().addClass('step' + c_id);
                     $('.step' + c_id).prev().addClass('ship-after');
                 }
                 else {
                     $(this).addClass('player-missed');
-                    opponents_turn ();
+                    playersTurn = false;
+                    opponents_turn();
                 }
 
                 var player_points = $('.ship-opponent').length;
@@ -1007,22 +1001,14 @@ $(document).ready(function () {
 
                 $('#opponents-navy').html(opp_left);
 
-                if (opp_left === 0){
+                if (opp_left === 0) {
                     // you won
                 }
-
-
-
-
             });
-
-
-
-
         }
 
 
-        function opponents_turn () {
+        function opponents_turn() {
 
             $('#board-right').addClass('disabled')
             $('#board-left').removeClass('disabled')
@@ -1032,16 +1018,18 @@ $(document).ready(function () {
             var opponents_chosen_steps = opponents_random_moves.pop();
             console.log(opponents_chosen_steps);
 
-            
-            $('.board-left td').on( "click", function() {
+
+            $('.board-left td').on("click", function () {
+
+                if(playersTurn === true) {
+                    return;
+                }
+
+                var cell_id = $(this).attr("id");
+                var c_id = cell_id.replace('Lcell-', '');
 
 
-                var cell_id =  $(this).attr("id");
-                var c_id = cell_id.replace('Lcell-','');
-
-
-                if(playershipsLocation.indexOf(c_id) != -1 )
-                {
+                if (playershipsLocation.indexOf(c_id) != -1) {
 
                     $(this).addClass('ship-player');
                     $(this).next().addClass('step' + c_id);
@@ -1049,8 +1037,7 @@ $(document).ready(function () {
 
                 }
 
-                else if (playershipsLocationRight.indexOf(c_id) != -1)
-                {
+                else if (playershipsLocationRight.indexOf(c_id) != -1) {
 
                     $(this).addClass('ship-player');
                     $(this).prev().addClass('step' + c_id);
@@ -1061,7 +1048,9 @@ $(document).ready(function () {
                 else {
 
                     $(this).addClass('opp-missed');
-                    players_turn ();
+
+                    playersTurn = true;
+                    players_turn();
 
                 }
 
@@ -1073,12 +1062,9 @@ $(document).ready(function () {
                 var player_left = numberOfShips - opponents_points;
                 $('#players-navy').html(player_left);
 
-                if (player_left === 0){
-                // you lost
+                if (player_left === 0) {
+                    // you lost
                 }
-
-
-
 
 
             });
@@ -1087,8 +1073,6 @@ $(document).ready(function () {
         }
 
 
-
     }
-
 
 });
