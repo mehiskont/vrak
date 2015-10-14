@@ -131,7 +131,7 @@ $(document).ready(function () {
 
             //  var opponents_random_moves = Math.floor((Math.random() * sizeOfGridXY) + 1);
 
-            for (var a = [], i = 0; i < sizeOfGridXY; ++i) a[i] = i;
+            for (var a = [], i = 1; i < sizeOfGridXY; ++i) a[i] = i;
 
             function shuffle(array) {
                 var tmp, current, top = array.length;
@@ -147,7 +147,7 @@ $(document).ready(function () {
             a = shuffle(a);
 
             opponents_random_moves = a;
-
+            console.log('opponents_random_moves :' + opponents_random_moves);
 
             $('#js-grid-selection').addClass('lift-up');
 
@@ -952,122 +952,116 @@ $(document).ready(function () {
 
     function gameplay() {
 
-        var playersTurn = true;
 
-        players_turn();
-
-
-        function players_turn() {
+        var cell_id;
+        var c_id;
 
 
-            $('#board-left').addClass('disabled')
-            $('#board-right').removeClass('disabled')
-            $('.card').removeClass('flipped');
-
-            $('.board-right td').on("click", function () {
-                if(playersTurn === false) {
-                    return;
-                }
-
-                var myoluline_asi = $(this);
-
-                var cell_id = $(this).attr("id");
-                var c_id = cell_id.replace('Rcell-', '');
+        $('#board-left').addClass('disabled')
+        $('#board-right').removeClass('disabled')
+        $('.card').removeClass('flipped');
 
 
-                if (oppshipsLocation.indexOf(c_id) != -1) {
+        /////////////////////////////////////////////////////////////////////// players turn
+        $('.board-right td').on("click", function () {
 
-                    $(this).addClass('ship-opponent');
-                    $(this).next().addClass('step' + c_id);
-                    $('.step' + c_id).next().addClass('ship-after');
-                }
-                else if (oppshipsLocationRight.indexOf(c_id) != -1) {
-                    $(this).addClass('ship-opponent');
-                    $(this).prev().addClass('step' + c_id);
-                    $('.step' + c_id).prev().addClass('ship-after');
-                }
-                else {
-                    $(this).addClass('player-missed');
-                    playersTurn = false;
-                    opponents_turn();
-                }
+            cell_id = $(this).attr("id");
+            c_id = cell_id.replace('Rcell-', '');
 
-                var player_points = $('.ship-opponent').length;
+            if (oppshipsLocation.indexOf(c_id) != -1) {   //if ship is hit
 
-                var player_missed = $('.player-missed').length;
-                $('.players-moves').html(player_missed);
+                $(this).addClass('ship-opponent');
+            }
+            else if (oppshipsLocationRight.indexOf(c_id) != -1) {  //if ship is hit
+                $(this).addClass('ship-opponent');
+            }
+            else {                                             //if missed, go to opponents_turn function
+                $(this).addClass('player-missed');
+                $('#board-right').addClass('disabled')
+                $('#board-left').removeClass('disabled')
+                $('.card').addClass('flipped');
 
-                var opp_left = numberOfShips - player_points;
+                setTimeout(opponents_turn, 1000);
+            }
 
-                $('#opponents-navy').html(opp_left);
+            var player_points = $('.ship-opponent').length/2;
 
-                if (opp_left === 0) {
-                    // you won
-                }
-            });
-        }
+            var player_missed = $('.player-missed').length;
+            $('.players-moves').html(player_missed);
+
+            var opp_left = numberOfShips - player_points;
+
+            $('#opponents-navy').html(opp_left);
+
+            if (opp_left === 0) {
+                // you won
+            }
+
+
+        });
+
+        /////////////////////////////////////////////////////////////////////// players turn end
 
 
         function opponents_turn() {
 
-            $('#board-right').addClass('disabled')
-            $('#board-left').removeClass('disabled')
-            $('.card').addClass('flipped');
+            var player_left;
 
 
-            var opponents_chosen_steps = opponents_random_moves.pop();
-            console.log(opponents_chosen_steps);
+            var opponents_chosen_steps;
 
 
-            $('.board-left td').on("click", function () {
+            opponents_random_calc();
+            function opponents_random_calc() {
 
-                if(playersTurn === true) {
-                    return;
+                opponents_chosen_steps = opponents_random_moves.pop();
+
+                if (opponents_chosen_steps === undefined) {
+                    opponents_random_calc();
                 }
+            }
 
-                var cell_id = $(this).attr("id");
-                var c_id = cell_id.replace('Lcell-', '');
+            var points = $('.ship-player').length/2;
 
+            console.log('opponents_chosen_steps' + opponents_chosen_steps);
 
-                if (playershipsLocation.indexOf(c_id) != -1) {
-
-                    $(this).addClass('ship-player');
-                    $(this).next().addClass('step' + c_id);
-                    $('.step' + c_id).next().addClass('ship-after');
-
-                }
-
-                else if (playershipsLocationRight.indexOf(c_id) != -1) {
-
-                    $(this).addClass('ship-player');
-                    $(this).prev().addClass('step' + c_id);
-                    $('.step' + c_id).prev().addClass('ship-after');
-
-                }
-
-                else {
-
-                    $(this).addClass('opp-missed');
-
-                    playersTurn = true;
-                    players_turn();
-
-                }
-
-                var opponents_points = $('.ship-player').length;
-                var opponent_missed = $('.opp-missed').length;
-                $('.opponents-moves').html(opponent_missed);
+            var move_match_id = $('.' + opponents_chosen_steps).attr('id');
+            console.log(move_match_id);
+            var move_match = move_match_id.replace("Lcell-", "");
 
 
-                var player_left = numberOfShips - opponents_points;
+            console.log('cell id where opponent clicks: ' + move_match_id);
+
+
+            if (playershipsLocation.indexOf(move_match) != -1) {   // if ship is hit
+
+                $('#' + move_match_id).addClass('ship-player');
+                player_left = numberOfShips - points;
                 $('#players-navy').html(player_left);
+                setTimeout(opponents_turn, 1000);
 
-                if (player_left === 0) {
-                    // you lost
+            }
+
+            else if (playershipsLocationRight.indexOf(move_match) != -1) {  // if ship is hit
+
+                $('#' + move_match_id).addClass('ship-player');
+                player_left = numberOfShips - points;
+                $('#players-navy').html(player_left);
+                setTimeout(opponents_turn, 1000);
+
+            }
+
+            else {
+                $('#' + move_match_id).addClass('opp-missed');  // if missed, go to players_turn function
+                //        playersTurn = true;
+                setTimeout(delay_missed, 1000);
+                function delay_missed(){
+                    $('#board-left').addClass('disabled')
+                    $('#board-right').removeClass('disabled')
+                    $('.card').removeClass('flipped');
                 }
-
-
-            });
+                return;
+            }
 
 
         }

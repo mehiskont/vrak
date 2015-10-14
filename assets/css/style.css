@@ -130,9 +130,18 @@ table td {
 }
 .ship-opponent {
   background-color: #b94a48 !important;
+    background: url('../img/ship.svg');
+    -webkit-animation-duration: 3s;
+    -webkit-animation-name: fading;
+    animation-duration: 3s;
+    animation-name: fading;
 }
 .ship-player {
     background-color: #b94a48 !important;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-name: fading;
+    animation-duration: 3s;
+    animation-name: fading;
 }
 .ship-after {
     background-color: #b94a48 !important;
@@ -234,12 +243,20 @@ td:hover {
 }
 .opp-missed {
     background-color: #ccc;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-name: fading;
+    animation-duration: 3s;
+    animation-name: fading;
 }
 .opp-missed:hover {
     background-color: #ccc;
 }
 .player-missed {
     background-color: #ccc;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-name: fading;
+    animation-duration: 3s;
+    animation-name: fading;
 }
 .player-missed:hover {
     background-color: #ccc;
@@ -275,6 +292,7 @@ td:hover {
     .board-wrap .table-cell {
         display: block;
         margin: auto;
+        width: 100%;
     }
     .board-wrap {
         height: initial;
