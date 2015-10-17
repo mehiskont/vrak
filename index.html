@@ -18,7 +18,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 </head>
@@ -26,9 +25,9 @@
 
 <div id="js-grid-selection" class="choose-grid">
 
-    <div class="table-row">
+    <div class="flexbox">
 
-        <div class="elements-left table-cell text-center">
+        <div class="elements-left text-center">
             <span>Choose a size for the grid</span>
             <select id="js-grid-btn" class=" form-control">
                 <option disabled value="">select</option>
@@ -43,46 +42,16 @@
             </select>
         </div>
 
-        <div class="elements-right table-cell text-center">
+        <div class="elements-righttext-center">
             <span>how many ships to play with?</span>
-            <ul id="js-ships-list" class="list-unstyled">
-
-                    <button id="ships1" class="btn-custom js-ships-count disabled">1</button>
-
-                    <button id="ships2" class="btn-custom js-ships-count disabled">2</button>
-
-                    <button id="ships3" class="btn-custom js-ships-count disabled">3</button>
-
-                    <button id="ships4" class="btn-custom js-ships-count disabled">4</button>
-
-                    <button id="ships5" class="btn-custom js-ships-count disabled">5</button>
-
-                    <button id="ships6" class="btn-custom js-ships-count disabled">6</button>
-
-                    <button id="ships7" class="btn-custom js-ships-count disabled">7</button>
-
-                    <button id="ships8" class="btn-custom js-ships-count disabled">8</button>
-
-                    <button id="ships9" class="btn-custom js-ships-count disabled">9</button>
-
-
-            </ul>
-
-
+            <select id="js-ships-list" class="form-control">
+            </select>
         </div>
 
-        <div class="elements-center table-cell text-center">
+        <div class="elements-center text-center">
             <button id="js-start-game" class="btn btn-custom disabled"> Play!</button>
         </div>
     </div>
-    <div class="table-row">
-        <div class="elements table-cell text-center"><label id="js-box-size"></label></div>
-        <div class="elements table-cell text-center"><label id="js-ships-count"></label></div>
-        <div class="elements table-cell text-center"><button id="js-expand-menu" class="btn-dropdown btn-custom"></button></div>
-    </div>
-</div>
-<div class="game-stats">
-    <button id="js-stats-btn" class="btn btn-stats pull-right"></button>
     <div class="flexbox">
         <table class="stats-table">
             <thead>
@@ -98,10 +67,12 @@
         </table>
     </div>
     <div class="curr-game">
-
-
     </div>
+    <button id="js-expand-menu" class="btn-dropdown btn-custom"></button>
+
 </div>
+
+
 <div class="board-wrap">
     <div class="table-cell text-center">
         <h1 class="transparent">your navy (<span id="players-navy"></span>)</h1>
@@ -131,8 +102,6 @@
         </table>
     </div>
 </div>
-
-
 
 
 </body>

@@ -1,17 +1,20 @@
 .choose-grid {
     width: 650px;
-    height: 360px;
+    height: 414px;
     background-color: #ccc;
     border: 1px solid #eee;
     border-radius: 2px;
     margin: auto;
-    padding: 0 8px 34px 8px;
+    padding: 0;
     position: absolute;
     right: 0;
     left: 0;
     transform: translate3d(0, 0, 0);
     transition: all 0.15s;
-    display: table;
+
+}
+.choose-grid .flexbox:nth-child(2) {
+    margin-top: 16px;
 }
 .table {
     display: table;
@@ -407,3 +410,9 @@ th {
 .curr-game {
     padding: 4px;
 }
+
+
+
+
+
+

@@ -1,12 +1,15 @@
 $(document).ready(function () {
 
 
+
     var grid = '#js-grid-selection',
         numberOfShips = '',
         sizeOfGrid = '',
         state,
         sizeOfGridXY;
 
+
+    var points;
 
     var numberOfShipsStart;
 
@@ -63,9 +66,9 @@ $(document).ready(function () {
     });
 
 
-
     var startTime;
     var tik_tak = 0;
+
     function time_tick() {
         // later record end time
         var endTime = new Date();
@@ -85,12 +88,12 @@ $(document).ready(function () {
         // get minutes
         minutes = Math.round(timeDiff % 60);
 
-        if(seconds<10){
-            seconds = "0"+seconds;
+        if (seconds < 10) {
+            seconds = "0" + seconds;
         }
 
-        if(minutes<10){
-            minutes = "0"+minutes;
+        if (minutes < 10) {
+            minutes = "0" + minutes;
         }
 
         $(".timer").text(minutes + ":" + seconds);
@@ -98,17 +101,14 @@ $(document).ready(function () {
     }
 
 
-
-
     function game_ended() {
 
         $('#player-stats').empty();
         $('#opponent-stats').empty();
-        $('.game-stats').addClass('pull-stats');
+        $('.choose-grid').removeClass('lift-up');
 
         console.log('stats');
         //   console.log('players_moves_storage' + players_moves_storage)
-
 
 
         game_time.push(minutes + ":" + seconds);
@@ -122,7 +122,7 @@ $(document).ready(function () {
             console.log('stats ' + players_moves_storage[loop])
         }
 
-        clearTimeout (tik_tak);
+        clearTimeout(tik_tak);
     }
 
     function initial_setup() {
@@ -144,34 +144,25 @@ $(document).ready(function () {
 
             sizeOfGrid = MaxOfShips;
             sizeOfGridXY = gridX * gridX;
-            choose_settings();
 
-            function choose_settings() {
-                for (var i = 1; i < MaxOfShips; i++) {
-                    $('#js-ships-list').find("button:nth-child(" + i + ")").removeClass('disabled');
-                }
+            $('#js-ships-list').find("option").remove();
 
-                for (var c = MaxOfShips; c < 10; c++) {
-                    $('#js-ships-list').find("button:nth-child(" + c + ")").addClass('disabled');
-                }
+            for (var i = 1; i < MaxOfShips; i++) {
+                var option = '<option value"' + i + '">' + i + '</option>';
+                $(option).appendTo('#js-ships-list');
             }
-
 
         });
 
+        $("#js-ships-list").change(function () {
 
-        $(".js-ships-count").click(function () {
-            $('#js-start-game').removeClass('disabled');
-            var shipsCount = $(this).attr('id'),
-                chosenShips = shipsCount.replace("ships", ""),
-                shipsInt = parseInt(chosenShips);
-
-            //        $("#js-ships-count").html(shipsInt + " ships");  // display ships count
-            // display initialships count
+            var shipsInt = $(this).val();
+                console.log(shipsInt)
 
             numberOfShips = shipsInt;
 
             console.log('numberOfShips' + numberOfShips)
+            $('#js-start-game').removeClass('disabled');
         });
 //restart game
 
@@ -215,8 +206,6 @@ $(document).ready(function () {
 
 
             $("h1 span").html(numberOfShipsStart);
-
-
 
 
             for (var a = [], i = 1; i < sizeOfGridXY; ++i) a[i] = i;
@@ -896,7 +885,7 @@ $(document).ready(function () {
                 //randomize the order of all ships
                 var is_ship = [0];
                 while (is_ship.length < countBoat) {
-                    var randomnumber = Math.ceil(Math.random() * countBoat-1)
+                    var randomnumber = Math.ceil(Math.random() * countBoat - 1)
                     var found = false;
                     for (var i = 0; i < is_ship.length; i++) {
                         if (is_ship[i] == randomnumber) {
@@ -951,7 +940,7 @@ $(document).ready(function () {
                 //randomize the order of all ships
                 var is_ship = [0];
                 while (is_ship.length < countBoatOpp) {
-                    var randomnumber = Math.ceil(Math.random() * countBoatOpp-1)
+                    var randomnumber = Math.ceil(Math.random() * countBoatOpp - 1)
                     var found = false;
                     for (var i = 0; i < is_ship.length; i++) {
                         if (is_ship[i] == randomnumber) {
@@ -1014,7 +1003,7 @@ $(document).ready(function () {
         $('#board-left').addClass('disabled')
         $('#board-right').removeClass('disabled')
         $('.card').removeClass('flipped');
-
+        var points = $('.ship-player').length / 2;
 
         /////////////////////////////////////////////////////////////////////// players turn
         $('.board-right td').on("click", function () {
@@ -1057,7 +1046,7 @@ $(document).ready(function () {
                 opps_moves_storage.push(count_opps_moves);
 
                 $('.curr-game').html(' you won with ' + count_players_moves + ' moves, opponent made ' + count_opps_moves + ' moves ');
-
+                points = $('.ship-player').length / 2;
                 game_ended();
             }
 
@@ -1071,7 +1060,7 @@ $(document).ready(function () {
 
             ++count_opps_moves;
 
-
+            points = $('.ship-player').length / 2;
             console.log('count_opps_moves: ' + count_opps_moves);
 
             opponents_random_calc();
@@ -1084,7 +1073,7 @@ $(document).ready(function () {
                 }
             }
 
-            var points = $('.ship-player').length / 2;
+
 
             console.log('opponents_chosen_steps' + opponents_chosen_steps);
 
