@@ -5,14 +5,16 @@
     border: 1px solid #eee;
     border-radius: 2px;
     margin: auto;
-    padding: 8px 8px 0px 8px;
-    display: table;
+    padding: 0 8px 34px 8px;
     position: absolute;
     right: 0;
     left: 0;
     transform: translate3d(0, 0, 0);
     transition: all 0.15s;
-
+    display: table;
+}
+.table {
+    display: table;
 }
 h1 {
     display: inline-block;
@@ -21,7 +23,7 @@ h1 {
     margin-bottom: 24px !important;
 }
 .transparent {
-    opacity: 0;
+    opacity: 0 !important;
 }
 
 .player-stats {
@@ -60,18 +62,21 @@ h1 {
     position: absolute;
     z-index: -1;
 }
+.board-wrap .transparent {
+    opacity: 0 !important;
+}
+
 table#board-left td,table#board-right td {
     width: 30px ;
     height: 30px ;
     border: 1px solid #ccc ;
 }
-.choose-grid button{
-    width: 95%;
-}
+
 .choose-grid span {
-    padding-bottom: 15px;
+    padding: 8px 6px 6px 6px;
     display: block;
     text-align: center;
+    margin: 4px;
 }
 
 
@@ -99,11 +104,11 @@ table#board-left td,table#board-right td {
 }
 
 .btn-custom {
+    width: 100% !important;
     background-color: #eee;
-    border: none;
+    border: 1px solid #ccc;
     color: #333;
     padding: 7px 4px;
-    margin: 4px;
     border-radius: 2px;
 
 }
@@ -122,7 +127,7 @@ table#board-left td,table#board-right td {
 }
 
 .lift-up {
-    transform: translate3d(0, -428px, 0);
+    transform: translate3d(0, -402px, 0);
 }
 
 table td {
@@ -162,9 +167,12 @@ table td {
 #js-start-game {
     background-color: #6cc644;
     color: #fff !important;
+    margin-top: 41px;
+    margin-left: 4px;
 }
 .btn-dropdown {
     opacity: 0;
+    width: 100%;
     border: 1px solid #EEE;
     background-color: #ffc40d;
     background-image: url('../img/Down.svg');
@@ -172,14 +180,19 @@ table td {
     background-repeat: no-repeat;
     background-size: 20px 20px;
     height: 34px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-position: center center;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
 }
 
 .board-left {
    margin:auto;
     box-shadow: 0 0 34px 0 #ccc;
     cursor: pointer;
+    transition: all 0.9s;
 }
 .board-left .ship {
     background: url('../img/ship.svg');
@@ -192,6 +205,7 @@ table td {
 margin: auto;
     box-shadow: 0 0 34px 0 #ccc;
     cursor: pointer;
+    transition: all 0.9s;
 }
 
 
@@ -261,29 +275,71 @@ td:hover {
 .player-missed:hover {
     background-color: #ccc;
 }
-
+.shipamount {
+    overflow-y: scroll;
+    height: 124px;
+}
+.flexbox {
+    display: flex;
+    justify-content: center;
+}
+.timer {
+    text-align: center;
+    margin-top: 28px;
+}
 .game-stats {
-    width: 650px;
+    width: 292px;
+    box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.63);
+    height: 400px;
     position: fixed;
-    height: 300px;
-    background-color: #ccc;
-    border: 1px solid #eee;
-    border-radius: 2px;
-    bottom: -250px;
     left: 0;
-    right: 0;
+    bottom: 0;
     margin: auto;
+    top: 0;
+    background-color: #eee;
+    border-radius: 2px;
+    transform: translate3d(-292px, 0, 0);
+    transition: all 0.15s;
+}
+.pull-stats {
+    transform: translate3d(0, 0, 0) !important;
+}
+.game-stats .btn-stats {
+    border: 1px solid #EEE;
+    background-color: #ffc40d;
+    background-image: url('../img/Down.svg');
+    border-radius: 2px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    margin-right: -34px;
+    height: 34px;
+    width: 34px;
+    background-position: center center;
+    margin-bottom: 0px;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
+.table {
+    width: 100%;
+}
+.stats-table {
+    width: 100%;
+}
 @media only screen and (max-width: 700px) {
    .table-cell {
    //    display: block;
    }
     .choose-grid {
         width: 100%;
+        display: flex;
+    }
+    .choose-grid .table-cell {
+        display: block;
     }
     .lift-up {
-        transform: translate3d(0, -448px, 0);
+        transform: translate3d(0, -325px, 0);
     }
     .elements-center {
         vertical-align: bottom;
@@ -297,8 +353,58 @@ td:hover {
     .board-wrap {
         height: initial;
         top: 86px;
+        padding-bottom: 30px;
     }
     .flip {
         display: none;
     }
+
+    #js-start-game {
+        width: 55px !important;
+    }
+    .js-ships-count {
+        width: 80px !important;
+    }
+    .js-grid-btn {
+        width: 80px !important;
+    }
+    .game-stats {
+bottom: initial;
+        width: 245px;
+        transform: translate3d(-245px, 0, 0);
+    }
+
+}
+
+@media only screen and (max-width: 310px) {
+
+    .lift-up {
+        transform: translate3d(0, -422px, 0);
+    }
+
+}
+
+
+
+
+th {
+    text-align: left;
+    width: 70px;
+    padding: 4px !important;
+    background-color: #666;
+    color: #fff;
+    border: 1px solid #ccc;
+
+}
+
+#player-stats td
+{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+
+
+.curr-game {
+    padding: 4px;
 }
