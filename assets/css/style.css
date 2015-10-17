@@ -172,7 +172,7 @@ table td {
 }
 .btn-dropdown {
     opacity: 0;
-    width: 100%;
+    width: 40px !important;
     border: 1px solid #EEE;
     background-color: #ffc40d;
     background-image: url('../img/Down.svg');
@@ -181,8 +181,7 @@ table td {
     background-size: 20px 20px;
     height: 34px;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: -34px;
     right: 0;
     background-position: center center;
     margin-bottom: 0px;

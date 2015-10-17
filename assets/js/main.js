@@ -8,6 +8,8 @@ $(document).ready(function () {
         sizeOfGridXY;
 
 
+    var numberOfShipsStart;
+
     var oppshipsLocation = [];
     var oppshipsLocationRight = [];
     var playershipsLocation = [];
@@ -41,6 +43,10 @@ $(document).ready(function () {
     var grid_size_stats = [];
     var ships_size_stats = [];
 
+    var game_time = [];
+
+    var minutes = 0;
+    var seconds = 0;
 
     function init() {
         initial_setup();
@@ -57,7 +63,44 @@ $(document).ready(function () {
     });
 
 
-    function stats_disp() {
+
+    var startTime;
+    var tik_tak = 0;
+    function time_tick() {
+        // later record end time
+        var endTime = new Date();
+
+        // time difference in ms
+        var timeDiff = endTime - startTime;
+
+        // strip the miliseconds
+        timeDiff /= 1000;
+
+        // get seconds
+        seconds = Math.round(timeDiff % 60);
+
+        // remove seconds from the date
+        timeDiff = Math.floor(timeDiff / 60);
+
+        // get minutes
+        minutes = Math.round(timeDiff % 60);
+
+        if(seconds<10){
+            seconds = "0"+seconds;
+        }
+
+        if(minutes<10){
+            minutes = "0"+minutes;
+        }
+
+        $(".timer").text(minutes + ":" + seconds);
+        tik_tak = setTimeout(time_tick, 1000);
+    }
+
+
+
+
+    function game_ended() {
 
         $('#player-stats').empty();
         $('#opponent-stats').empty();
@@ -65,14 +108,21 @@ $(document).ready(function () {
 
         console.log('stats');
         //   console.log('players_moves_storage' + players_moves_storage)
+
+
+
+        game_time.push(minutes + ":" + seconds);
+
         for (var loop = 0; loop < players_moves_storage.length; ++loop) {
 
 
-            var table_row_player = '<tr><td>' + grid_size_stats[loop] + '</td><td>' + ships_size_stats[loop] + '</td><td>' + players_moves_storage[loop] + '</td><td>' + opps_moves_storage[loop] + '</td></tr>';
+            var table_row_player = '<tr><td>' + grid_size_stats[loop] + '</td><td>' + ships_size_stats[loop] + '</td><td>' + players_moves_storage[loop] + '</td><td>' + opps_moves_storage[loop] + '</td><td>' + game_time[loop] + '</td></tr>';
 
             $(table_row_player).appendTo('#player-stats');
             console.log('stats ' + players_moves_storage[loop])
         }
+
+        clearTimeout (tik_tak);
     }
 
     function initial_setup() {
@@ -117,7 +167,7 @@ $(document).ready(function () {
                 shipsInt = parseInt(chosenShips);
 
             //        $("#js-ships-count").html(shipsInt + " ships");  // display ships count
-            $("h1 span").html(shipsInt);  // display initialships count
+            // display initialships count
 
             numberOfShips = shipsInt;
 
@@ -128,6 +178,9 @@ $(document).ready(function () {
         //create grid
         $("#js-start-game").click(function () {
 
+
+            startTime = new Date();
+            setTimeout(time_tick, 1000);
 
             countBoat = 0;
             x = [];
@@ -149,17 +202,21 @@ $(document).ready(function () {
             count_opps_moves = 0;
             count_players_moves = 0;
 
+            numberOfShipsStart = numberOfShips;
 
             $('#board-left').empty();
             $('#board-right').empty();
 
 
             grid_size_stats.push(sizeOfGrid + ' x ' + sizeOfGrid);
-            ships_size_stats.push(numberOfShips);
-            //  var opponents_random_moves = Math.floor((Math.random() * sizeOfGridXY) + 1);
+            ships_size_stats.push(numberOfShipsStart);
 
 
-            //time
+
+
+            $("h1 span").html(numberOfShipsStart);
+
+
 
 
             for (var a = [], i = 1; i < sizeOfGridXY; ++i) a[i] = i;
@@ -850,33 +907,7 @@ $(document).ready(function () {
                     if (!found)is_ship[is_ship.length] = randomnumber;
                 }
 
-                var maxValue;
-                var maxValIndex;
-/*
-                if (sizeOfGrid === 3) {
-                    is_ship.push(1);
-                }
-                if (4 < sizeOfGrid < 8) {
 
-                     maxValue = Math.max.apply(this, is_ship);
-
-                     maxValIndex = $.inArray(maxValue, is_ship);
-
-
-                    if (maxValIndex > -1) {
-                        is_ship.splice(maxValIndex, 1);
-                    }
-                }
-                if (5 < sizeOfGrid < 8) {
-                     maxValue = Math.max.apply(this, is_ship);
-
-                     maxValIndex = $.inArray(maxValue, is_ship);
-
-                    if (maxValIndex > -1) {
-                        is_ship.splice(maxValIndex, 1);
-                    }
-                }
-*/
                 console.log('-----------');
                 console.log(is_ship);
                 console.log('y: ' + y);
@@ -884,7 +915,7 @@ $(document).ready(function () {
                 console.log('-----------');
 
                 //amount of ships chosen from ui will be taken from the randomized array of ships (var is_ship)
-                for (var z = 0; z < numberOfShips; ++z) {
+                for (var z = 0; z < numberOfShipsStart; ++z) {
 
 
                     var xLast = x[is_ship[z]];
@@ -931,34 +962,6 @@ $(document).ready(function () {
                     if (!found)is_ship[is_ship.length] = randomnumber;
                 }
 
-
-                // Get the max value from the array and remove it
-                var maxValue;
-                var maxValIndex;
-/*
-                if (sizeOfGrid === 3) {
-                    is_ship.push(1);
-                }
-                if (4 < sizeOfGrid < 8) {
-                     maxValue = Math.max.apply(this, is_ship);
-
-                     maxValIndex = $.inArray(maxValue, is_ship);
-
-                    if (maxValIndex > -1) {
-                        is_ship.splice(maxValIndex, 1);
-                    }
-                }
-                if (5 < sizeOfGrid < 8) {
-                    maxValue = Math.max.apply(this, is_ship);
-
-                    maxValIndex = $.inArray(maxValue, is_ship);
-
-                    if (maxValIndex > -1) {
-                        is_ship.splice(maxValIndex, 1);
-                    }
-                }
-*/
-
                 console.log('-----------');
                 console.log(is_ship);
                 console.log('y: ' + yOpp);
@@ -966,7 +969,7 @@ $(document).ready(function () {
                 console.log('-----------');
 
                 //amount of ships chosen from ui will be taken from the randomized array of ships (var is_ship)
-                for (var z = 0; z < numberOfShips; ++z) {
+                for (var z = 0; z < numberOfShipsStart; ++z) {
 
 
                     var xLast = xOpp[is_ship[z]];
@@ -991,8 +994,6 @@ $(document).ready(function () {
 
             setup_opp();
 
-            //      console.log('Opponent ships location :' +  oppshipsLocation);
-            //     console.log('Opponent ships location :' +  oppshipsLocationRight);
 
             gameplay();
 
@@ -1046,7 +1047,7 @@ $(document).ready(function () {
             var player_missed = $('.player-missed').length;
             $('.players-moves').html(player_missed);
 
-            opp_left = numberOfShips - player_points;
+            opp_left = numberOfShipsStart - player_points;
 
             $('#opponents-navy').html(opp_left);
 
@@ -1057,7 +1058,7 @@ $(document).ready(function () {
 
                 $('.curr-game').html(' you won with ' + count_players_moves + ' moves, opponent made ' + count_opps_moves + ' moves ');
 
-                stats_disp();
+                game_ended();
             }
 
 
@@ -1098,7 +1099,7 @@ $(document).ready(function () {
             if (playershipsLocation.indexOf(move_match) != -1) {   // if ship is hit
 
                 $('#' + move_match_id).addClass('ship-player');
-                player_left = numberOfShips - points;
+                player_left = numberOfShipsStart - points;
                 $('#players-navy').html(player_left);
                 ++count_opps_points;
                 setTimeout(opponents_turn, 1000);
@@ -1108,7 +1109,7 @@ $(document).ready(function () {
             else if (playershipsLocationRight.indexOf(move_match) != -1) {  // if ship is hit
 
                 $('#' + move_match_id).addClass('ship-player');
-                player_left = numberOfShips - points;
+                player_left = numberOfShipsStart - points;
                 $('#players-navy').html(player_left);
                 ++count_opps_points;
                 setTimeout(opponents_turn, 1000);
@@ -1133,7 +1134,7 @@ $(document).ready(function () {
                 opps_moves_storage.push(count_opps_moves);
 
                 $('.curr-game').html('you lost with ' + count_players_moves + ' moves, opponent made ' + count_opps_moves + ' moves ');
-                stats_disp();
+                game_ended();
             }
         }
 
