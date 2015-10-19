@@ -100,9 +100,10 @@ $(document).ready(function () {
         tik_tak = setTimeout(time_tick, 1000);
     }
 
-
     function game_ended() {
 
+
+        $('.stats-table').removeClass('hidden');
         $('#player-stats').empty();
         $('#opponent-stats').empty();
         $('.choose-grid').removeClass('lift-up');
@@ -118,7 +119,7 @@ $(document).ready(function () {
 
             var table_row_player = '<tr><td>' + grid_size_stats[loop] + '</td><td>' + ships_size_stats[loop] + '</td><td>' + players_moves_storage[loop] + '</td><td>' + opps_moves_storage[loop] + '</td><td>' + game_time[loop] + '</td></tr>';
 
-            $(table_row_player).appendTo('#player-stats');
+            $(table_row_player).prependTo('#player-stats');
             console.log('stats ' + players_moves_storage[loop])
         }
 
@@ -204,6 +205,8 @@ $(document).ready(function () {
 
 
 
+
+         //   $('.lift-up').css('transform','translate3d(0, -'+ menu_height +', 0)');
 
             $("h1 span").html(numberOfShipsStart);
 
@@ -991,7 +994,6 @@ $(document).ready(function () {
 
     }
 
-
     function gameplay() {
 
 
@@ -1060,7 +1062,7 @@ $(document).ready(function () {
 
             ++count_opps_moves;
 
-            points = $('.ship-player').length / 2;
+
             console.log('count_opps_moves: ' + count_opps_moves);
 
             opponents_random_calc();
@@ -1088,8 +1090,10 @@ $(document).ready(function () {
             if (playershipsLocation.indexOf(move_match) != -1) {   // if ship is hit
 
                 $('#' + move_match_id).addClass('ship-player');
+                points = $('.ship-player').length / 2;
                 player_left = numberOfShipsStart - points;
                 $('#players-navy').html(player_left);
+
                 ++count_opps_points;
                 setTimeout(opponents_turn, 1000);
 
@@ -1098,6 +1102,7 @@ $(document).ready(function () {
             else if (playershipsLocationRight.indexOf(move_match) != -1) {  // if ship is hit
 
                 $('#' + move_match_id).addClass('ship-player');
+                points = $('.ship-player').length / 2;
                 player_left = numberOfShipsStart - points;
                 $('#players-navy').html(player_left);
                 ++count_opps_points;

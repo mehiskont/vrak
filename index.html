@@ -25,12 +25,12 @@
 
 <div id="js-grid-selection" class="choose-grid">
 
+
     <div class="flexbox">
 
         <div class="elements-left text-center">
             <span>Choose a size for the grid</span>
             <select id="js-grid-btn" class=" form-control">
-                <option disabled value="">select</option>
                 <option value="3">3x3</option>
                 <option value="4">4x4</option>
                 <option value="5">5x5</option>
@@ -52,8 +52,10 @@
             <button id="js-start-game" class="btn btn-custom disabled"> Play!</button>
         </div>
     </div>
+    <div class="curr-game">
+    </div>
     <div class="flexbox">
-        <table class="stats-table">
+        <table class="stats-table hidden">
             <thead>
             <th>grid size</th>
             <th>ships</th>
@@ -66,13 +68,18 @@
             </tbody>
         </table>
     </div>
-    <div class="curr-game">
-    </div>
-    <button id="js-expand-menu" class="btn-dropdown btn-custom"></button>
+
+
 
 </div>
+<button id="js-expand-menu" class="btn-dropdown btn-custom"></button>
+<div class="flip hidden-sm hidden-lg hidden-md">
 
+    <div class="text-center timer">
+        00:00
+    </div>
 
+</div>
 <div class="board-wrap">
     <div class="table-cell text-center">
         <h1 class="transparent">your navy (<span id="players-navy"></span>)</h1>
@@ -80,7 +87,7 @@
 
         </table>
     </div>
-    <div class="flip">
+    <div class="flip hidden-xs">
         <div class="card">
             <div class="face front">
                <i class="fa fa-chevron-right"></i>

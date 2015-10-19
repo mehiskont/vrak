@@ -1,17 +1,15 @@
 .choose-grid {
     width: 650px;
-    height: 414px;
+    max-height: 500px;
     background-color: #ccc;
     border: 1px solid #eee;
     border-radius: 2px;
     margin: auto;
     padding: 0;
-    position: absolute;
-    right: 0;
-    left: 0;
-    transform: translate3d(0, 0, 0);
     transition: all 0.15s;
-
+overflow: hidden;
+    position: relative;
+z-index:2;
 }
 .choose-grid .flexbox:nth-child(2) {
     margin-top: 16px;
@@ -61,7 +59,6 @@ h1 {
 .board-wrap {
     display: table;
     width: 100%;
-    height: 100%;
     position: absolute;
     z-index: -1;
 }
@@ -130,7 +127,7 @@ table#board-left td,table#board-right td {
 }
 
 .lift-up {
-    transform: translate3d(0, -402px, 0);
+    max-height: 0;
 }
 
 table td {
@@ -170,7 +167,7 @@ table td {
 #js-start-game {
     background-color: #6cc644;
     color: #fff !important;
-    margin-top: 41px;
+    margin-top: 42px;
     margin-left: 4px;
 }
 .btn-dropdown {
@@ -183,11 +180,9 @@ table td {
     background-repeat: no-repeat;
     background-size: 20px 20px;
     height: 34px;
-    position: absolute;
-    bottom: -34px;
-    right: 0;
+    display: block;
     background-position: center center;
-    margin-bottom: 0px;
+    margin: auto;
 }
 
 .board-left {
@@ -335,14 +330,11 @@ td:hover {
    }
     .choose-grid {
         width: 100%;
-        display: flex;
     }
     .choose-grid .table-cell {
         display: block;
     }
-    .lift-up {
-        transform: translate3d(0, -325px, 0);
-    }
+  
     .elements-center {
         vertical-align: bottom;
         padding-bottom: 30px;
@@ -358,9 +350,14 @@ td:hover {
         padding-bottom: 30px;
     }
     .flip {
-        display: none;
+       bottom: initial;
+        z-index: 1;
+        height: 20px;
+        top: 42px;
     }
-
+.timer {
+    margin-top: 0;
+}
     #js-start-game {
         width: 55px !important;
     }
@@ -378,13 +375,7 @@ bottom: initial;
 
 }
 
-@media only screen and (max-width: 310px) {
 
-    .lift-up {
-        transform: translate3d(0, -422px, 0);
-    }
-
-}
 
 
 
@@ -409,6 +400,7 @@ th {
 
 .curr-game {
     padding: 4px;
+    text-align: center;
 }
 
 
