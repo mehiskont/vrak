@@ -3,10 +3,10 @@ $(document).ready(function () {
 
 
     var grid = '#js-grid-selection',
-        numberOfShips = '',
-        sizeOfGrid = '',
+        numberOfShips = 1,
+        sizeOfGrid = 3,
         state,
-        sizeOfGridXY;
+        sizeOfGridXY = 9;
 
 
     var points;
@@ -107,6 +107,7 @@ $(document).ready(function () {
         $('#player-stats').empty();
         $('#opponent-stats').empty();
         $('.choose-grid').removeClass('lift-up');
+        $('.board-wrap').addClass('disabled');
 
         console.log('stats');
         //   console.log('players_moves_storage' + players_moves_storage)
@@ -131,7 +132,7 @@ $(document).ready(function () {
 
         $("#js-grid-btn").change(function () {
 
-            $('#js-start-game').addClass('disabled');
+          //  $('#js-start-game').addClass('disabled');
             //   $("#js-ships-count").html('');
 
             var matrixSize = $(this).val(),
@@ -171,6 +172,7 @@ $(document).ready(function () {
         $("#js-start-game").click(function () {
 
 
+            $('.board-wrap').removeClass('disabled');
             startTime = new Date();
             setTimeout(time_tick, 1000);
 
