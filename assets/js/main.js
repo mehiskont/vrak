@@ -122,6 +122,25 @@ $(document).ready(function () {
 
             $(table_row_player).prependTo('#player-stats');
             console.log('stats ' + players_moves_storage[loop])
+
+            if (players_moves_storage.length === 11) {
+/*
+                grid_size_stats.splice(1, 1);
+                ships_size_stats.splice(1, 1);
+                players_moves_storage.splice(1, 1);
+                opps_moves_storage.splice(1, 1);
+                game_time.splice(1, 1); */
+
+
+                grid_size_stats.shift();
+                ships_size_stats.shift();
+                players_moves_storage.shift();
+                opps_moves_storage.shift();
+                game_time.shift();
+
+            //    $('#player-stats tr:first-child').empty();
+
+            }
         }
 
         clearTimeout(tik_tak);

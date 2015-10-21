@@ -2,7 +2,6 @@
     width: 650px;
     max-height: 500px;
     background-color: #ccc;
-    border: 1px solid #eee;
     border-radius: 2px;
     margin: auto;
     padding: 0;
@@ -10,6 +9,7 @@
 overflow: hidden;
     position: relative;
 z-index:2;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.8);
 }
 .choose-grid .flexbox:nth-child(2) {
     margin-top: 16px;
@@ -180,6 +180,8 @@ table td {
     background-repeat: no-repeat;
     background-size: 20px 20px;
     height: 34px;
+    position: relative;
+    z-index: 99;
     display: block;
     background-position: center center;
     margin: auto;
